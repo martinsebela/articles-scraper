@@ -5,7 +5,6 @@ import com.msebela.scraping.scraper.Scrapeable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -36,7 +35,7 @@ public abstract class Website implements Scrapeable {
 
     @Override
     public Set<ArticleInfo> extractArticlesFromDocument(Document document) {
-        final Elements elements = document.selectXpath(getArticleXPath());
+        final Elements elements = extractArticles(document);
         final Set<ArticleInfo> foundArticles =
                 elements.stream().map(this::extractArticleInfo).
                         filter(Optional::isPresent).map(Optional::get).collect(Collectors.toSet());
@@ -45,37 +44,23 @@ public abstract class Website implements Scrapeable {
     }
 
     protected Optional<ArticleInfo> extractArticleInfo(final Element element) {
-        final String url = element.attributes().get(getLinkAttributeName());
-        if (url == null) {
+        final Optional<String> url = extractUrlFromArticle(element);
+        if (url.isEmpty()) {
             log.warn("Cannot obtain link from article element: {}." + element);
             return Optional.empty();
         }
-        final Optional<TextNode> headline = element.selectXpath(getArticleHeadlineXPath(), TextNode.class).stream().findFirst();
+        final Optional<String> headline = extractHeadlineFromArticle(element);
         if (headline.isEmpty()) {
             log.warn("Cannot obtain headline from article element: {}." + element);
             return Optional.empty();
         }
-        return Optional.of(new ArticleInfo(url, headline.get().text()));
+        return Optional.of(new ArticleInfo(url.get(), headline.get()));
     }
 
-    /**
-     * Get XPath selector for obtaining article elements.
-     * @return XPath article selector.
-     */
-    protected abstract String getArticleXPath();
+    protected abstract Elements extractArticles(final Document document);
 
-    /**
-     * Get XPath selector to get headline text from article element.
-     * @return XPath article headline selector.
-     */
-    protected abstract String getArticleHeadlineXPath();
+    protected abstract Optional<String> extractUrlFromArticle(final Element element);
 
-    /**
-     * Get name of element attribute containing link to article.
-     * @return Element attribute containing link.
-     */
-    protected String getLinkAttributeName() {
-        return "href";
-    }
+    protected abstract Optional<String> extractHeadlineFromArticle(final Element element);
 
 }
