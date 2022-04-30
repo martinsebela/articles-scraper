@@ -1,7 +1,7 @@
 package com.msebela.scraping.configuration;
 
 import com.msebela.scraping.scraper.Scraper;
-import com.msebela.scraping.scraper.ScraperService;
+import com.msebela.scraping.scraper.WebScraperService;
 import com.msebela.scraping.scraper.WebScraper;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -24,8 +24,8 @@ public class SpringConfiguration {
     }
 
     @Bean
-    public ScraperService scraperTask() {
-        return new ScraperService(scraper(), applicationProperties());
+    public WebScraperService webScraperService() {
+        return new WebScraperService(scraper(), applicationProperties());
     }
 
 }

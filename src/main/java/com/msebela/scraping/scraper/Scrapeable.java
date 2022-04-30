@@ -1,16 +1,19 @@
-package com.msebela.scraping.websites;
+package com.msebela.scraping.scraper;
 
 import com.msebela.scraping.article.ArticleInfo;
 import org.jsoup.nodes.Document;
 
-import java.util.List;
+import java.util.Set;
 
-public interface Scrapable {
+/**
+ *
+ */
+public interface Scrapeable {
 
     /**
      * Process document and extract information about articles.
      * @param document
      * @return
      */
-    List<ArticleInfo> extractArticlesFromDocument(final Document document);
+    Set<ArticleInfo> extractArticlesFromDocument(final Document document);
 }

@@ -1,0 +1,27 @@
+scraper:
+  articles:
+    connect-timeout-seconds: '30'
+    task-interval-seconds: '10'
+    websites:
+      - url: https://www.idnes.cz/
+        website-type: idnes
+      - url: https://hn.cz/
+        website-type: hn
+      - url: https://www.bbc.com/
+        website-type: bbc
+spring:
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: 'true'
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: 'true'
+  datasource:
+    url: jdbc:postgresql://localhost:5432/student
+    username: postgres
+    password: admin
+logging:
+  file:
+    name: myapplication.log
