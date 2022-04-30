@@ -40,7 +40,7 @@ public class WebScraperService {
                 Website web = websiteOptional.get();
                 articles.addAll(scraper.scrape(info.url(), web));
             } else {
-                log.warn("No implementation found for website type {}." + info.websiteType());
+                log.warn("No implementation found for website type {}.", info.websiteType());
             }
         });
         return articles;

@@ -1,8 +1,8 @@
 package com.msebela.scraping.websites;
 
+import org.jsoup.internal.StringUtil;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.nodes.TextNode;
 import org.jsoup.select.Elements;
 
 import java.util.Optional;
@@ -13,12 +13,15 @@ public class BBCWebsite extends Website {
      * XPath selector for obtaining article elements.
      */
     private static final String ARTICLE_XPATH =
-            "//div[contains(@class, 'media__content')]//a[contains(@class, 'media')]";
+            "//div[contains(@class, 'media')][./div[contains(@class, 'media__content')]]";
 
     /**
-     * XPath selector to get headline text from article element.
+     * Attribute containing headline of the article.
      */
-    private static final String ARTICLE_HEADLINE_XPATH = "//text()";
+    private static final String ARTICLE_HEADLINE_ATTRIBUTE = "data-bbc-title";
+
+    private static final String LINK_ELEMENT_XPATH =
+            "//div[contains(@class, 'media__content')]//a[contains(@class, 'media__link')]";
 
     /**
      * HTML href attribute containing link.
@@ -35,17 +38,27 @@ public class BBCWebsite extends Website {
     }
 
     @Override
-    protected Optional<String> extractUrlFromArticle(final Element element) {
-        return Optional.ofNullable(element.attributes().get(LINK_ATTRIBUTE));
+    protected Optional<String> extractUrlFromArticle(final Element element, final Optional<String> websiteUrl) {
+        final Element linkElement = element.selectXpath(LINK_ELEMENT_XPATH).first();
+        if (linkElement == null) {
+            return Optional.empty();
+        }
+        final String link = linkElement.attributes().get(LINK_ATTRIBUTE);
+        if (websiteUrl.isPresent()) {
+            return Optional.ofNullable(getValidUrl(link, websiteUrl.get()));
+        }
+        return Optional.ofNullable(link);
     }
 
     @Override
-    protected Optional<String> extractHeadlineFromArticle(Element element) {
-        final Optional<TextNode> headline =
-                element.selectXpath(ARTICLE_HEADLINE_XPATH, TextNode.class).stream().findFirst();
-        if (headline.isEmpty()) {
-            return Optional.empty();
+    protected Optional<String> extractHeadlineFromArticle(final Element element) {
+        return Optional.ofNullable(element.attributes().get(ARTICLE_HEADLINE_ATTRIBUTE));
+    }
+
+    private String getValidUrl(final String link, final String websiteUrl) {
+        if (link != null && !link.contains(websiteUrl)) {
+            return websiteUrl.replaceAll("/$", "") + link;
         }
-        return Optional.of(headline.get().text());
+        return link;
     }
 }

@@ -34,7 +34,7 @@ public class HNWebsite extends Website {
     }
 
     @Override
-    protected Optional<String> extractUrlFromArticle(final Element element) {
+    protected Optional<String> extractUrlFromArticle(final Element element, final Optional<String> websiteUrl) {
         return Optional.ofNullable(element.attributes().get(LINK_ATTRIBUTE));
     }
 
