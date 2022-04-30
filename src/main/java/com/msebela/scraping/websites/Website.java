@@ -1,8 +1,12 @@
 package com.msebela.scraping.websites;
 
+import com.msebela.scraping.article.ArticleInfo;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NonNull;
+
+import java.util.List;
+import java.util.Set;
 
 @Getter
 @AllArgsConstructor
@@ -13,17 +17,12 @@ public abstract class Website implements Scrapable {
      */
     @NonNull
     private final WebsiteType websiteType;
-    /**
-     * The URL of the website.
-     */
-    @NonNull
-    private final String url;
 
     /**
-     * Array of available website implementations.
+     * List of available website implementations.
      */
     @Getter
-    private static Website[] websites = new Website[] {
-            new IdnesWebsite(), new HNWebsite(), new BBCWebsite()
-    };
+    private static Set<Website> websites = Set.of(
+            new IdnesWebsite(), new HNWebsite(), new BBCWebsite());
+
 }
