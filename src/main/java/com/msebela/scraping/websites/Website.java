@@ -1,6 +1,6 @@
 package com.msebela.scraping.websites;
 
-import com.msebela.scraping.article.ArticleInfo;
+import com.msebela.scraping.article.dto.ArticleInfo;
 import com.msebela.scraping.scraper.ArticleScrapeable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,6 +1,7 @@
 package com.msebela.scraping.configuration;
 
 import com.msebela.scraping.article.ArticleInfoRepository;
+import com.msebela.scraping.article.ArticleSearchService;
 import com.msebela.scraping.scraper.ArticleScraper;
 import com.msebela.scraping.scraper.WebScraper;
 import com.msebela.scraping.scraper.WebScraperService;
@@ -10,7 +11,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 import javax.persistence.EntityManagerFactory;
-import java.util.Collections;
 
 @Configuration
 @EnableScheduling

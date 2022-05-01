@@ -1,6 +1,6 @@
 package com.msebela.scraping.scraper;
 
-import com.msebela.scraping.article.ArticleInfo;
+import com.msebela.scraping.article.dto.ArticleInfo;
 
 import java.util.Set;
 
