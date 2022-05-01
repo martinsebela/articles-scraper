@@ -16,11 +16,11 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: 'true'
         search:
-          default:
-            directory_provider: filesystem
-            indexBase: ./data/lucene
+          backend:
+            directory:
+              root: ./index/lucene
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     show-sql: 'true'
   datasource:
     url: jdbc:postgresql://localhost:5432/articles

@@ -63,5 +63,6 @@ public class WebScraperService {
         final Set<ArticleInfoEntity> newArticles = articleEntities.stream()
                 .filter(a -> !existingUrls.contains(a.getUrl())).collect(Collectors.toSet());
         repository.saveAll(newArticles);
+        log.info("Saved {} new articles.", newArticles.size());
     }
 }

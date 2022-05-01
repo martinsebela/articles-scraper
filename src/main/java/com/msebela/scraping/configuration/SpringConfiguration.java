@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 import javax.persistence.EntityManagerFactory;
+import java.util.Collections;
 
 @Configuration
 @EnableScheduling
@@ -34,10 +35,12 @@ public class SpringConfiguration {
     }
 
     @Bean
-    public IndexService indexService(final EntityManagerFactory entityManagerFactory) {
-        final IndexService indexService = new IndexService(entityManagerFactory);
-        indexService.indexEntities();
-        return indexService;
+    public ArticleSearchService articleSearchService(final EntityManagerFactory entityManagerFactory) {
+        final ArticleSearchService searchService =
+                new ArticleSearchService(entityManagerFactory.createEntityManager());
+        searchService.indexEntities();
+        searchService.searchArticlesByKeywords(Collections.emptyList());
+        return searchService;
     }
 
 }
