@@ -1,7 +1,7 @@
 scraper:
   articles:
     connect-timeout-seconds: '30'
-    task-interval-seconds: '10'
+    task-interval-seconds: '30'
     websites:
       - url: https://www.idnes.cz/
         website-type: idnes
@@ -15,11 +15,15 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: 'true'
+        search:
+          backend:
+            directory:
+              root: ./index/lucene
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     show-sql: 'true'
   datasource:
-    url: jdbc:postgresql://localhost:5432/student
+    url: jdbc:postgresql://localhost:5432/articles
     username: postgres
     password: admin
 logging:

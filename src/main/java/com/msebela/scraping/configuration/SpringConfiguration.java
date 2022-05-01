@@ -1,12 +1,16 @@
 package com.msebela.scraping.configuration;
 
+import com.msebela.scraping.article.ArticleInfoRepository;
 import com.msebela.scraping.scraper.ArticleScraper;
-import com.msebela.scraping.scraper.WebScraperService;
 import com.msebela.scraping.scraper.WebScraper;
+import com.msebela.scraping.scraper.WebScraperService;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
+
+import javax.persistence.EntityManagerFactory;
+import java.util.Collections;
 
 @Configuration
 @EnableScheduling
@@ -19,13 +23,23 @@ public class SpringConfiguration {
     }
 
     @Bean
-    public ArticleScraper scraper() {
-        return new WebScraper(applicationProperties());
+    public ArticleScraper articleScraper(final ApplicationProperties applicationProperties) {
+        return new WebScraper(applicationProperties);
     }
 
     @Bean
-    public WebScraperService webScraperService() {
-        return new WebScraperService(scraper(), applicationProperties());
+    public WebScraperService webScraperService(final ArticleInfoRepository articleInfoRepository,
+                                               final ApplicationProperties applicationProperties,
+                                               final ArticleScraper articleScraper) {
+        return new WebScraperService(articleInfoRepository, articleScraper, applicationProperties);
+    }
+
+    @Bean
+    public ArticleSearchService articleSearchService(final EntityManagerFactory entityManagerFactory) {
+        final ArticleSearchService searchService =
+                new ArticleSearchService(entityManagerFactory.createEntityManager());
+        searchService.indexEntities();
+        return searchService;
     }
 
 }
