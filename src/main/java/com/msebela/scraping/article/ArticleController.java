@@ -14,6 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class ArticleController {
     private final ArticleSearchService articleSearchService;
 
+    /**
+     * Finds articles based on keywords.
+     * @param articleKeywords Keywords to search articles by.
+     * @return Information about articles matching keywords.
+     */
     @PostMapping(path = "/find")
     public ArticlesResult findArticles(@RequestBody final ArticleKeywords articleKeywords) {
         return articleSearchService.searchArticlesByKeywords(articleKeywords.keywords());
