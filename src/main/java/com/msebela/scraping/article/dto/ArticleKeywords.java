@@ -1,5 +1,7 @@
 package com.msebela.scraping.article.dto;
 
+import lombok.NonNull;
+
 import java.util.List;
 
 /**
@@ -7,6 +9,6 @@ import java.util.List;
  * @param keywords List of keywords.
  */
 public record ArticleKeywords(
-        List<String> keywords
+        @NonNull List<String> keywords
 ) {
 }
