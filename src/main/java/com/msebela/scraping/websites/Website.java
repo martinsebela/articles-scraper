@@ -1,6 +1,6 @@
 package com.msebela.scraping.websites;
 
-import com.msebela.scraping.article.ArticleInfo;
+import com.msebela.scraping.article.dto.ArticleInfo;
 import com.msebela.scraping.scraper.ArticleScrapeable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,7 +29,7 @@ public abstract class Website implements ArticleScrapeable {
     private static Set<Website> websites = Set.of(
             new IdnesWebsite(), new HNWebsite(), new BBCWebsite());
 
-    private static final String WEBSITE_URL_XPATH = "/html/head/meta[@property='og:url']";
+    private static final String WEBSITE_URL_XPATH = "/html//meta[@property='og:url']";
 
     private static final String WEBSITE_URL_ATTRIBUTE = "content";
 

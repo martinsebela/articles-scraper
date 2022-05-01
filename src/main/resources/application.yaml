@@ -1,7 +1,7 @@
 scraper:
   articles:
     connect-timeout-seconds: '30'
-    task-interval-seconds: '30'
+    task-interval-seconds: '60'
     websites:
       - url: https://www.idnes.cz/
         website-type: idnes
@@ -21,7 +21,7 @@ spring:
               root: ./index/lucene
     hibernate:
       ddl-auto: update
-    show-sql: 'true'
+    show-sql: 'false'
   datasource:
     url: jdbc:postgresql://localhost:5432/articles
     username: postgres

@@ -1,12 +1,12 @@
-package com.msebela.scraping.article;
+package com.msebela.scraping.article.dto;
 
 import lombok.NonNull;
 
 /**
  * Record holding information about an article.
  * @param url Article URL.
- * @param headline Article headline.
+ * @param text Article headline.
  */
 public record ArticleInfo(@NonNull String url,
-                          @NonNull String headline) {
+                          @NonNull String text) {
 }

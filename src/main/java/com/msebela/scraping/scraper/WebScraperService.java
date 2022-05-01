@@ -1,6 +1,6 @@
 package com.msebela.scraping.scraper;
 
-import com.msebela.scraping.article.ArticleInfo;
+import com.msebela.scraping.article.dto.ArticleInfo;
 import com.msebela.scraping.article.ArticleInfoEntity;
 import com.msebela.scraping.article.ArticleInfoRepository;
 import com.msebela.scraping.configuration.ApplicationProperties;
@@ -26,6 +26,9 @@ public class WebScraperService {
     private final ArticleScraper articleScraper;
     private final ApplicationProperties applicationProperties;
 
+    /**
+     * Periodically scrapes websites and obtains information about articles.
+     */
     @Scheduled(fixedRateString = "${scraper.articles.task-interval-seconds:60}", timeUnit = TimeUnit.SECONDS)
     public void scrapeWebs() {
         log.info("Begin scraping web");
@@ -59,7 +62,7 @@ public class WebScraperService {
     private void saveArticles(final Set<ArticleInfo> articles) {
         Set<ArticleInfoEntity> articleEntities =
                 articles.stream().map(
-                        a -> new ArticleInfoEntity(null, a.url(), a.headline())).collect(Collectors.toSet());
+                        a -> new ArticleInfoEntity(null, a.url(), a.text())).collect(Collectors.toSet());
         final Set<String> existingUrls = repository.findAllByUrlIn(
                         articleEntities.stream().map(a -> a.getUrl()).collect(Collectors.toSet()))
                 .stream().map(a -> a.getUrl()).collect(Collectors.toSet());

@@ -1,6 +1,6 @@
 package com.msebela.scraping.scraper;
 
-import com.msebela.scraping.article.ArticleInfo;
+import com.msebela.scraping.article.dto.ArticleInfo;
 import com.msebela.scraping.configuration.ApplicationProperties;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
@@ -29,7 +29,8 @@ public class WebScraper implements ArticleScraper {
             log.error("Request to get document on URL timed out.", e);
             return Collections.emptySet();
         } catch (IOException e) {
-            throw new RuntimeException(e); //TODO
+            log.error("Unable to connect to the website.", e);
+            return Collections.emptySet();
         }
 
         return extractedArticles;
