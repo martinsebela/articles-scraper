@@ -39,7 +39,6 @@ public class SpringConfiguration {
         final ArticleSearchService searchService =
                 new ArticleSearchService(entityManagerFactory.createEntityManager());
         searchService.indexEntities();
-        searchService.searchArticlesByKeywords(Collections.emptyList());
         return searchService;
     }
 
