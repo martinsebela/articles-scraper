@@ -1,5 +1,6 @@
 package com.msebela.scraping.configuration;
 
+import com.msebela.scraping.article.ArticleInfoRepository;
 import com.msebela.scraping.scraper.ArticleScraper;
 import com.msebela.scraping.scraper.WebScraper;
 import com.msebela.scraping.scraper.WebScraperService;
@@ -21,13 +22,15 @@ public class SpringConfiguration {
     }
 
     @Bean
-    public ArticleScraper scraper() {
-        return new WebScraper(applicationProperties());
+    public ArticleScraper articleScraper(final ApplicationProperties applicationProperties) {
+        return new WebScraper(applicationProperties);
     }
 
     @Bean
-    public WebScraperService webScraperService() {
-        return new WebScraperService(scraper(), applicationProperties());
+    public WebScraperService webScraperService(final ArticleInfoRepository articleInfoRepository,
+                                               final ApplicationProperties applicationProperties,
+                                               final ArticleScraper articleScraper) {
+        return new WebScraperService(articleInfoRepository, articleScraper, applicationProperties);
     }
 
     @Bean

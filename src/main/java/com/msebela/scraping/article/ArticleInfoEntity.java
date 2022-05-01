@@ -1,5 +1,6 @@
 package com.msebela.scraping.article;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.search.annotations.Field;
@@ -14,6 +15,7 @@ import javax.persistence.Id;
 @Indexed
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class ArticleInfoEntity {
 
     @Id
