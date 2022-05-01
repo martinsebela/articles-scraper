@@ -15,16 +15,16 @@ import java.util.Set;
 
 @Slf4j
 @AllArgsConstructor
-public class WebScraper implements Scraper {
+public class WebScraper implements ArticleScraper {
     private final ApplicationProperties applicationProperties;
 
-    public Set<ArticleInfo> scrape(@NonNull final String url, @NonNull final Scrapeable scrapeable) {
+    public Set<ArticleInfo> scrape(@NonNull final String url, @NonNull final ArticleScrapeable articleScrapeable) {
         final Set<ArticleInfo> extractedArticles;
         try {
             log.info("Attempting to connect to URL {}", url);
             final Document document = Jsoup.connect(url)
                     .timeout(applicationProperties.getConnectTimeoutSeconds() * 1000).get();
-            extractedArticles = scrapeable.extractArticlesFromDocument(document);
+            extractedArticles = articleScrapeable.extractArticlesFromDocument(document);
         } catch (SocketTimeoutException e) {
             log.error("Request to get document on URL timed out.", e);
             return Collections.emptySet();

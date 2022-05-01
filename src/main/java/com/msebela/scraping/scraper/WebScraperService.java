@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @AllArgsConstructor
 public class WebScraperService {
-    private final Scraper scraper;
+    private final ArticleScraper articleScraper;
     private final ApplicationProperties applicationProperties;
 
     @Scheduled(fixedRateString = "${scraper.articles.task-interval-seconds:60}", timeUnit = TimeUnit.SECONDS)
@@ -38,7 +38,7 @@ public class WebScraperService {
         websiteMap.forEach((info, websiteOptional) -> {
             if (websiteOptional.isPresent()) {
                 Website web = websiteOptional.get();
-                articles.addAll(scraper.scrape(info.url(), web));
+                articles.addAll(articleScraper.scrape(info.url(), web));
             } else {
                 log.warn("No implementation found for website type {}.", info.websiteType());
             }

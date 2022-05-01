@@ -6,9 +6,9 @@ import org.jsoup.nodes.Document;
 import java.util.Set;
 
 /**
- *
+ * Interface denoting that class implementing this is able to extract article information from document.
  */
-public interface Scrapeable {
+public interface ArticleScrapeable {
 
     /**
      * Process document and extract information about articles.
