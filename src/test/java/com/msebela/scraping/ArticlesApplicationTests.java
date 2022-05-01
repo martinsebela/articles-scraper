@@ -1,4 +1,4 @@
-package com.msebela.articles;
+package com.msebela.scraping;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
