@@ -17,7 +17,7 @@ import java.util.Set;
 @Slf4j
 @AllArgsConstructor
 public class WebScraper implements ArticleScraper {
-    private final ApplicationProperties applicationProperties;
+    private  ApplicationProperties applicationProperties;
 
     public Set<ArticleInfo> scrape(@NonNull final URL url, @NonNull final ArticleScrapeable articleScrapeable) {
         final Set<ArticleInfo> extractedArticles;

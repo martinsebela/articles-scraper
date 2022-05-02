@@ -42,7 +42,7 @@ public class WebScraperService {
         final Set<ArticleInfo> articles = new HashSet<>();
         websiteMap.forEach((info, websiteOptional) -> {
             if (websiteOptional.isPresent()) {
-                Website web = websiteOptional.get();
+                final Website web = websiteOptional.get();
                 articles.addAll(articleScraper.scrape(info.url(), web));
             } else {
                 log.warn("No implementation found for website type {}.", info.websiteType());
@@ -57,6 +57,9 @@ public class WebScraperService {
      */
     @Transactional
     private void saveArticles(final Set<ArticleInfo> articles) {
+        if (articles.isEmpty()) {
+            return;
+        }
         Set<ArticleInfoEntity> articleEntities =
                 articles.stream().map(
                         a -> new ArticleInfoEntity(null, a.url(), a.text())).collect(Collectors.toSet());

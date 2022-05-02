@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "/articles")
+@RequestMapping(path = "/articles", produces = "application/json")
 @AllArgsConstructor
 public class ArticleController {
     private final ArticleSearchService articleSearchService;
