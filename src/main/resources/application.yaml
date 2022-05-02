@@ -5,7 +5,7 @@ scraper:
     websites:
       - url: https://www.idnes.cz/
         website-type: idnes
-      - url: https://hn.cz/
+      - url: https://ihned.cz/
         website-type: hn
       - url: https://www.bbc.com/
         website-type: bbc
