@@ -10,6 +10,7 @@ import org.jsoup.nodes.Document;
 
 import java.io.IOException;
 import java.net.SocketTimeoutException;
+import java.net.URL;
 import java.util.Collections;
 import java.util.Set;
 
@@ -18,11 +19,11 @@ import java.util.Set;
 public class WebScraper implements ArticleScraper {
     private final ApplicationProperties applicationProperties;
 
-    public Set<ArticleInfo> scrape(@NonNull final String url, @NonNull final ArticleScrapeable articleScrapeable) {
+    public Set<ArticleInfo> scrape(@NonNull final URL url, @NonNull final ArticleScrapeable articleScrapeable) {
         final Set<ArticleInfo> extractedArticles;
         try {
             log.info("Attempting to connect to URL {}", url);
-            final Document document = Jsoup.connect(url)
+            final Document document = Jsoup.connect(url.toString())
                     .timeout(applicationProperties.getConnectTimeoutSeconds() * 1000).get();
             extractedArticles = articleScrapeable.extractArticlesFromDocument(document);
         } catch (SocketTimeoutException e) {

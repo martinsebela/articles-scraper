@@ -1,6 +1,5 @@
-package com.msebela.scraping.websites;
+package com.msebela.scraping.scraper.websites;
 
-import org.jsoup.internal.StringUtil;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;

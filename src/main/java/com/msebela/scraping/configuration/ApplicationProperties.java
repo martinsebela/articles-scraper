@@ -1,6 +1,6 @@
 package com.msebela.scraping.configuration;
 
-import com.msebela.scraping.websites.WebsiteInfo;
+import com.msebela.scraping.scraper.websites.WebsiteInfo;
 import lombok.Data;
 
 import java.util.Set;

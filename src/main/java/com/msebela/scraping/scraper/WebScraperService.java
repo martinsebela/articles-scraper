@@ -1,21 +1,19 @@
 package com.msebela.scraping.scraper;
 
-import com.msebela.scraping.article.dto.ArticleInfo;
 import com.msebela.scraping.article.ArticleInfoEntity;
 import com.msebela.scraping.article.ArticleInfoRepository;
+import com.msebela.scraping.article.dto.ArticleInfo;
 import com.msebela.scraping.configuration.ApplicationProperties;
-import com.msebela.scraping.websites.Website;
-import com.msebela.scraping.websites.WebsiteInfo;
+import com.msebela.scraping.scraper.websites.Website;
+import com.msebela.scraping.scraper.websites.WebsiteInfo;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.scheduling.annotation.Scheduled;
 
 import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -24,19 +22,18 @@ import java.util.stream.Collectors;
 public class WebScraperService {
     private final ArticleInfoRepository repository;
     private final ArticleScraper articleScraper;
-    private final ApplicationProperties applicationProperties;
 
     /**
-     * Periodically scrapes websites and obtains information about articles.
+     * Scrapes specified websites and stores obtained information about articles.
+     * @param websites Websites to be scraped.
      */
-    @Scheduled(fixedRateString = "${scraper.articles.task-interval-seconds:60}", timeUnit = TimeUnit.SECONDS)
-    public void scrapeWebs() {
+    public void scrapeWebsAndSaveResults(final Set<WebsiteInfo> websites) {
         log.info("Begin scraping web");
-        final Set<Website> websites = Website.getWebsites();
+        final Set<Website> existingWebsites = Website.getWebsites();
         final Map<WebsiteInfo, Optional<Website>> websiteMap =
-                applicationProperties.getWebsites().stream().collect(Collectors.toMap(
+                websites.stream().collect(Collectors.toMap(
                         Function.identity(),
-                        info -> websites.stream().filter(w -> w.getWebsiteType() == info.websiteType()).findFirst()));
+                        info -> existingWebsites.stream().filter(w -> w.getWebsiteType() == info.websiteType()).findFirst()));
         final Set<ArticleInfo> articles = scrapeWebsites(websiteMap);
         saveArticles(articles);
     }

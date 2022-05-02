@@ -1,4 +1,4 @@
-package com.msebela.scraping.websites;
+package com.msebela.scraping.scraper.websites;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;

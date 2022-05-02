@@ -1,4 +1,4 @@
-package com.msebela.scraping.websites;
+package com.msebela.scraping.scraper.websites;
 
 import com.msebela.scraping.article.dto.ArticleInfo;
 import com.msebela.scraping.scraper.ArticleScrapeable;

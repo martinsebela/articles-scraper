@@ -2,6 +2,7 @@ package com.msebela.scraping.scraper;
 
 import com.msebela.scraping.article.dto.ArticleInfo;
 
+import java.net.URL;
 import java.util.Set;
 
 /**
@@ -15,5 +16,5 @@ public interface ArticleScraper {
      * @param articleScrapeable Object performing the scraping.
      * @return Set of articles on given URL.
      */
-    Set<ArticleInfo> scrape(final String url, final ArticleScrapeable articleScrapeable);
+    Set<ArticleInfo> scrape(final URL url, final ArticleScrapeable articleScrapeable);
 }

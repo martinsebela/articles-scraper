@@ -29,9 +29,14 @@ public class SpringConfiguration {
 
     @Bean
     public WebScraperService webScraperService(final ArticleInfoRepository articleInfoRepository,
-                                               final ApplicationProperties applicationProperties,
                                                final ArticleScraper articleScraper) {
-        return new WebScraperService(articleInfoRepository, articleScraper, applicationProperties);
+        return new WebScraperService(articleInfoRepository, articleScraper);
+    }
+
+    @Bean
+    public ScheduledTask scheduledTask(
+            final WebScraperService webScraperService, final ApplicationProperties applicationProperties) {
+        return new ScheduledTask(webScraperService, applicationProperties);
     }
 
     @Bean

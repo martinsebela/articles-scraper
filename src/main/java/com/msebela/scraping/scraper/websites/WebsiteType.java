@@ -1,4 +1,4 @@
-package com.msebela.scraping.websites;
+package com.msebela.scraping.scraper.websites;
 
 /**
  * Type of the website indicating common website structure.
