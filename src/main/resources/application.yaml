@@ -29,3 +29,6 @@ spring:
 logging:
   file:
     name: webscraper.log
+springdoc:
+  swagger-ui:
+    path: swagger-ui
