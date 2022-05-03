@@ -3,7 +3,6 @@ package com.msebela.scraping.scraper;
 import com.msebela.scraping.article.ArticleInfoEntity;
 import com.msebela.scraping.article.ArticleInfoRepository;
 import com.msebela.scraping.article.dto.ArticleInfo;
-import com.msebela.scraping.configuration.ApplicationProperties;
 import com.msebela.scraping.scraper.websites.Website;
 import com.msebela.scraping.scraper.websites.WebsiteInfo;
 import lombok.AllArgsConstructor;
